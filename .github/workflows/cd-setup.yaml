@@ -26,7 +26,7 @@ jobs:
           dsl-file: ./platform_content/application.groovy
           dsl-args: |
             repoUrl: ${{ github.server_url }}/${{ github.repository }}
-            dockerHubUser: ${{ secrets.DOCKERHUB_USER }}
+            harborRegistryUrl: ${{ secrets.HARBOR_REGISTRY_URL }}
             cdro_url: ${{ secrets.CDRO_URL }}
 
       - name: Setup service catalog
@@ -35,4 +35,4 @@ jobs:
           ignore-unverified-cert: true
           dsl-file: ./platform_content/catalog.groovy
           dsl-args: |
-            dockerHubUser: ${{ secrets.DOCKERHUB_USER }}
+            harborRegistryUrl: ${{ secrets.HARBOR_REGISTRY_URL }}
