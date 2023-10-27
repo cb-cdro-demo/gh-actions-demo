@@ -131,7 +131,7 @@ serviceAccount:
         type = 'entry'
       }
 
-      formalParameter 'imageRepository', defaultValue: args.dockerHubUser + '/demo-app', {
+      formalParameter 'imageRepository', defaultValue: '<HARBOR_REGISTRY_URL>' + '/${{ secrets.HARBOR_USER }}/demo-app', {
         label = 'Image Repository'
         orderIndex = '1'
         required = '1'
