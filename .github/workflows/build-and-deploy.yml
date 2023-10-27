@@ -48,7 +48,7 @@ jobs:
           context: .
           push: true
           tags: <HARBOR_REGISTRY_URL>/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}:${{ github.sha }}
-          
+
       - name: Kick off CD/RO application deploy
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         env:
