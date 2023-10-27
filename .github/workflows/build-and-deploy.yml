@@ -63,7 +63,7 @@ jobs:
           environmentName: demo-dev
           actualParameter: |
             imageTag: ${{ github.sha }}
-            imageRepository: <HARBOR_REGISTRY_URL>/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
+            imageRepository: ${{ secrets.HARBOR_REGISTRY_URL }}/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
 
       - name: Create release from template
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -79,7 +79,7 @@ jobs:
           actualParameter: |
             releaseName: "Simple Release ${{ github.sha }}"
             imageTag: "${{ github.sha }}"
-            imageRepository: <HARBOR_REGISTRY_URL>/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
+            imageRepository: ${{ secrets.HARBOR_REGISTRY_URL }}/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
 
       - name: Run release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
