@@ -135,12 +135,13 @@ project 'GHA', {
         type = 'entry'
       }
 
-      formalParameter 'imageRepository', defaultValue: args.dockerHubUser + '/demo-app', {
+      formalParameter 'imageRepository', defaultValue: args.harborRegistryUrl + '/' + args.harborUser + '/demo-app', {
         label = 'Image Repository'
         orderIndex = '3'
         required = '1'
         type = 'entry'
       }
+
 
     }
   }
