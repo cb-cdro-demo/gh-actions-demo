@@ -27,6 +27,7 @@ jobs:
           dsl-args: |
             repoUrl: ${{ github.server_url }}/${{ github.repository }}
             harborRegistryUrl: ${{ secrets.HARBOR_REGISTRY_URL }}
+            harborUser: ${{ secrets.HARBOR_USER }}
             cdro_url: ${{ secrets.CDRO_URL }}
 
       - name: Setup service catalog
@@ -36,3 +37,4 @@ jobs:
           dsl-file: ./platform_content/catalog.groovy
           dsl-args: |
             harborRegistryUrl: ${{ secrets.HARBOR_REGISTRY_URL }}
+            harborUser: ${{ secrets.HARBOR_USER }}
