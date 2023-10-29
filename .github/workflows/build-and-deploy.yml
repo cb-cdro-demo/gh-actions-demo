@@ -35,18 +35,19 @@ jobs:
       - name: Run build
         run: go build -v
 
-      - name: Login to Docker Hub
+      - name: Login to Harbor
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push container
+          registry: ${{ secrets.HARBOR_REGISTRY_URL }}
+          username: ${{ secrets.HARBOR_USER }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+          
+      - name: Build and push container to Harbor
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/${{ env.APP_NAME }}:${{ github.sha }}
+          tags: ${{ secrets.HARBOR_REGISTRY_URL }}/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}:${{ github.sha }}
 
       - name: Kick off CD/RO application deploy
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
@@ -62,7 +63,7 @@ jobs:
           environmentName: demo-dev
           actualParameter: |
             imageTag: ${{ github.sha }}
-            imageRepository: ${{ secrets.DOCKERHUB_USER }}/${{ env.APP_NAME }}
+            imageRepository: ${{ secrets.HARBOR_REGISTRY_URL }}/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
 
       - name: Create release from template
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -78,7 +79,7 @@ jobs:
           actualParameter: |
             releaseName: "Simple Release ${{ github.sha }}"
             imageTag: "${{ github.sha }}"
-            imageRepository: ${{ secrets.DOCKERHUB_USER }}/${{ env.APP_NAME }}
+            imageRepository: ${{ secrets.HARBOR_REGISTRY_URL }}/${{ secrets.HARBOR_USER }}/${{ env.APP_NAME }}
 
       - name: Run release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
