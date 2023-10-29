@@ -131,7 +131,7 @@ serviceAccount:
         type = 'entry'
       }
 
-      formalParameter 'imageRepository', defaultValue: '${{ secrets.HARBOR_REGISTRY_URL }}' + '/${{ secrets.HARBOR_USER }}/demo-app', {
+      formalParameter 'imageRepository', defaultValue: args.harborRegistryUrl + '/' + args.harborUser + '/demo-app', {
         label = 'Image Repository'
         orderIndex = '1'
         required = '1'
